@@ -323,7 +323,7 @@ export class Keyboard {
   }
 
   /**
-   * Release keys sustained due to being pressed with 'Shift'.
+   * Release keys sustained due to being pressed down with 'Shift'.
    */
   deactivate() {
     this.log('Releasing all sustained and active keys');
