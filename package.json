@@ -1,6 +1,6 @@
 {
   "name": "isomorphic-qwerty",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Isomorphic coordinate-system for the QWERTY keyboard with sustain using the Shift key",
   "funding": {
     "type": "github",
