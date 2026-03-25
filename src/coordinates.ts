@@ -117,7 +117,9 @@ export const CODES_LAYER_3 = [
  */
 export const COORDS_BY_CODE: Map<string, Coords3D> = new Map();
 CODES_LAYER_0.forEach((row, y) =>
-  row.forEach((code, x) => COORDS_BY_CODE.set(code, [ORIGIN_LAYER_0 + x, y, 0]))
+  row.forEach((code, x) =>
+    COORDS_BY_CODE.set(code, [ORIGIN_LAYER_0 + x, y, 0]),
+  ),
 );
 CODES_LAYER_1.forEach((row, y) => {
   row.forEach((code, x) => {
@@ -127,7 +129,9 @@ CODES_LAYER_1.forEach((row, y) => {
   });
 });
 CODES_LAYER_2.forEach((row, y) =>
-  row.forEach((code, x) => COORDS_BY_CODE.set(code, [ORIGIN_LAYER_2 + x, y, 2]))
+  row.forEach((code, x) =>
+    COORDS_BY_CODE.set(code, [ORIGIN_LAYER_2 + x, y, 2]),
+  ),
 );
 CODES_LAYER_3.forEach((row, y) => {
   row.forEach((code, x) => {

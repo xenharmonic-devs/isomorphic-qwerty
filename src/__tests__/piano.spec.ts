@@ -338,7 +338,7 @@ describe('Piano-style index mapper', () => {
         0, // bb
         2, // b
       ],
-      [1, 0]
+      [1, 0],
     );
     const asdfRow = CODES_LAYER_1[2]
       .slice(1)

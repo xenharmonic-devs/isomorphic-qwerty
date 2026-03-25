@@ -88,10 +88,10 @@ export class Keyboard {
       callback();
     }
     this.log(
-      `Firing keydown listeners with ${event.code} @ ${event.coordinates}`
+      `Firing keydown listeners with ${event.code} @ ${event.coordinates}`,
     );
     this.keydownCallbacks.forEach(callback =>
-      keyupCallbacks.push(callback(event))
+      keyupCallbacks.push(callback(event)),
     );
     this.keyupCallbacks.set(event.code, keyupCallbacks);
   }
@@ -148,7 +148,7 @@ export class Keyboard {
       this.activeKeys.add(event.code);
       if (event.shiftKey) {
         this.log(
-          `Adding ${event.code} to pending state due to being pressed with 'Shift'`
+          `Adding ${event.code} to pending state due to being pressed with 'Shift'`,
         );
         this.pendingKeys.add(event.code);
       }
@@ -165,7 +165,7 @@ export class Keyboard {
     this.log(`${event.code} keyup received`);
     if (event.shiftKey && this.activeKeys.has(event.code)) {
       this.log(
-        `Sticking ${event.code} due being released while 'Shift' is pressed`
+        `Sticking ${event.code} due being released while 'Shift' is pressed`,
       );
       this.stickyKeys.add(event.code);
     }
