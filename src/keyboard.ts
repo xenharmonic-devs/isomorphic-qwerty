@@ -74,6 +74,10 @@ export class Keyboard {
 
   /**
    * Unregister a listener for processed keydown events.
+   *
+   * Note: despite the generic method name, this removes callbacks previously
+   * registered with {@link Keyboard.addKeydownListener}.
+   *
    * @param listener Callback registered with {@link Keyboard.addKeydownListener}.
    */
   removeEventListener(listener: KeydownCallback) {

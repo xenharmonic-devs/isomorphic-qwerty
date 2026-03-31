@@ -1,9 +1,9 @@
 import {Coords3D, codeByCoords} from './coordinates';
 
 /**
- * Convert a linear sequence of note types into a piano-style layout
+ * Convert a linear sequence of note types into a piano-style layout.
  * @param ys Desired vertical coordinates for the notes/keys
- * @param shifts Adjustments to the first three rows. A shift difference of 1 puts a row behind the next row. Defaults to `[0, 0, 0]` so that the all rows are ahead of the rows below.
+ * @param shifts Adjustments to the first three rows. A shift difference of 1 puts a row behind the next row. Defaults to `[0, 0, 0]` so all rows are ahead of the rows below.
  * @returns `indexByCode`: a `Map` instance from keycodes to note indices. `coordsByIndex`: location of each note on layer 1 (the one with QWERTY/ASDF keys).
  */
 export function pianoMap(ys: number[], shifts?: number[]) {
