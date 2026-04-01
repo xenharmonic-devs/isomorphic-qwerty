@@ -454,4 +454,12 @@ describe('Piano-style index mapper', () => {
       25,
     ]);
   });
+
+  it('uses the third shift value when syncing the zxcv row', () => {
+    const {coordsByIndex} = pianoMap([2, 3], [0, 0, 1]);
+    expect(coordsByIndex).toEqual([
+      [0, 2, 1],
+      [1, 3, 1],
+    ]);
+  });
 });

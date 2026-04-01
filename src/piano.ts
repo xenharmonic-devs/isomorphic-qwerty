@@ -29,7 +29,7 @@ export function pianoMap(ys: number[], shifts?: number[]) {
     // Sync the other way too but with less "force".
     nextXs[1] = Math.max(nextXs[1], nextXs[0] + shifts[0] - 1);
     nextXs[2] = Math.max(nextXs[2], nextXs[1] + shifts[1] - 1);
-    nextXs[3] = Math.max(nextXs[3], nextXs[2] + shifts[1] - 1);
+    nextXs[3] = Math.max(nextXs[3], nextXs[2] + shifts[2] - 1);
   }
 
   const indexByCode = new Map<string, number>();
