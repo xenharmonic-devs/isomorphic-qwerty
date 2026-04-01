@@ -37,7 +37,7 @@ export class Keyboard {
     this.pendingKeys = new Set();
     this.stickyKeys = new Set();
 
-    if (autobind) {
+    if (autobind && typeof window !== 'undefined') {
       this._keydown = (event: KeyboardEvent) => this.keydown(event);
       this._keyup = (event: KeyboardEvent) => this.keyup(event);
       window.addEventListener('keydown', this._keydown);
@@ -56,10 +56,10 @@ export class Keyboard {
    * Stop listening to "keydown" and "keyup" events if constructed with `autobind = true`.
    */
   dispose() {
-    if (this._keydown) {
+    if (typeof window !== 'undefined' && this._keydown) {
       window.removeEventListener('keydown', this._keydown);
     }
-    if (this._keyup) {
+    if (typeof window !== 'undefined' && this._keyup) {
       window.removeEventListener('keyup', this._keyup);
     }
   }
@@ -81,22 +81,34 @@ export class Keyboard {
    * @param listener Callback registered with {@link Keyboard.addKeydownListener}.
    */
   removeEventListener(listener: KeydownCallback) {
-    this.keydownCallbacks.splice(this.keydownCallbacks.indexOf(listener), 1);
+    const index = this.keydownCallbacks.indexOf(listener);
+    if (index >= 0) {
+      this.keydownCallbacks.splice(index, 1);
+    }
   }
 
   private fireKeydown(event: CoordinateKeyboardEvent) {
-    event.coordinates = COORDS_BY_CODE.get(event.code);
+    const eventWithCoords: CoordinateKeyboardEvent = {
+      code: event.code,
+      coordinates: COORDS_BY_CODE.get(event.code),
+    };
     const keyupCallbacks = this.keyupCallbacks.get(event.code) || [];
     for (const callback of keyupCallbacks) {
       console.warn('Unresolved keyup detected');
       callback();
     }
     this.log(
-      `Firing keydown listeners with ${event.code} @ ${event.coordinates}`,
+      `Firing keydown listeners with ${event.code} @ ${eventWithCoords.coordinates}`,
     );
-    this.keydownCallbacks.forEach(callback =>
-      keyupCallbacks.push(callback(event)),
-    );
+    this.keydownCallbacks.forEach(callback => {
+      const keyupCallback = callback(eventWithCoords);
+      if (typeof keyupCallback !== 'function') {
+        throw new TypeError(
+          'Keyboard keydown listeners must return a keyup callback function.',
+        );
+      }
+      keyupCallbacks.push(keyupCallback);
+    });
     this.keyupCallbacks.set(event.code, keyupCallbacks);
   }
 
@@ -120,7 +132,11 @@ export class Keyboard {
     }
     // The pending state isn't strictly necessary as we filter out repeated events,
     // but it's kept in case event.repeat isn't 100% reliable.
-    if (event.key === 'Shift') {
+    if (
+      event.key === 'Shift' ||
+      event.code === 'ShiftLeft' ||
+      event.code === 'ShiftRight'
+    ) {
       for (const code of this.activeKeys) {
         this.log(`Adding ${code} to pending state due to a 'Shift' press`);
         this.pendingKeys.add(code);
@@ -129,7 +145,7 @@ export class Keyboard {
     }
 
     if (this.stickyKeys.has(event.code)) {
-      this.log(`Stricky toggle for ${event.code}`);
+      this.log(`Sticky toggle for ${event.code}`);
       this.activeKeys.delete(event.code);
       this.stickyKeys.delete(event.code);
       this.pendingKeys.delete(event.code);
