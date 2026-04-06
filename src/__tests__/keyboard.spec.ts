@@ -1,5 +1,5 @@
 import {describe, it, expect, vi} from 'vitest';
-import {CoordinateKeyboardEvent, Keyboard} from '../keyboard';
+import {CoordinateKeyboardEvent, Keyboard} from '../keyboard.js';
 
 describe('Isomoprhic QWERTY keyboard', () => {
   it('only triggers once on multiple repeats of an event', () => {
