@@ -1,4 +1,4 @@
-import {COORDS_BY_CODE, Coords3D} from './coordinates';
+import {COORDS_BY_CODE, Coords3D} from './coordinates.js';
 
 /**
  * Keyboard event with a key code and coordinates if the device geometry can be figured out with any confidence.

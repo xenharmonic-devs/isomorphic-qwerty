@@ -1,6 +1,6 @@
 import {describe, it, expect} from 'vitest';
-import {pianoMap} from '../piano';
-import {CODES_LAYER_1} from '../coordinates';
+import {pianoMap} from '../piano.js';
+import {CODES_LAYER_1} from '../coordinates.js';
 
 describe('Piano-style index mapper', () => {
   it('maps a chromatic scale diatonically starting from KeyQ', () => {

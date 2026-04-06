@@ -1,4 +1,4 @@
-import {Coords3D, codeByCoords} from './coordinates';
+import {Coords3D, codeByCoords} from './coordinates.js';
 
 /**
  * Convert a linear sequence of note types into a piano-style layout.
